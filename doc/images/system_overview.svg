@@ -1,41 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    @keyframes rotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    @keyframes dash {
-      to { stroke-dashoffset: -1000; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-    .user { animation: pulse 2s infinite; }
-    .module { fill: #f0f0f0; stroke: #333; stroke-width: 2; }
-    .data-flow { stroke-dasharray: 10 5; animation: dash 20s linear infinite; }
-    .gear { animation: rotate 10s linear infinite; transform-origin: center; }
-    .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; animation: fadeIn 2s; }
-    .module-title { font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; }
-    .emotion { fill-opacity: 0.7; animation: pulse 3s infinite; }
-  </style>
-  
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
   <!-- Background -->
   <rect width="800" height="500" fill="#f9f9f9" />
   
   <!-- Title -->
-  <text x="400" y="50" text-anchor="middle" class="title" fill="#333">
+  <text x="400" y="50" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#333">
     Real-time Emotion Data-based Amplification and Sharing System
   </text>
   
   <!-- User in the center -->
-  <g class="user">
+  <g>
     <circle cx="400" cy="250" r="40" fill="#64B5F6" />
     <circle cx="385" cy="240" r="5" fill="#333" />
     <circle cx="415" cy="240" r="5" fill="#333" />
@@ -43,73 +18,65 @@
   </g>
   
   <!-- Module 1: Emotion Data Collection -->
-  <g transform="translate(200, 150)">
-    <rect width="120" height="80" rx="15" ry="15" class="module" fill="#BBDEFB" />
-    <text x="60" y="30" text-anchor="middle" class="module-title">Emotion Data</text>
-    <text x="60" y="50" text-anchor="middle" class="module-title">Collection</text>
-    <!-- Sensors icon -->
-    <path d="M 40 60 L 60 70 L 80 60" stroke="#333" stroke-width="2" fill="none" />
-    <circle cx="40" cy="60" r="3" fill="#333" />
-    <circle cx="60" cy="70" r="3" fill="#333" />
-    <circle cx="80" cy="60" r="3" fill="#333" />
+  <g>
+    <rect x="200" y="150" width="120" height="80" rx="15" ry="15" fill="#BBDEFB" stroke="#333" stroke-width="2" />
+    <text x="260" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Emotion Data Collection</text>
+    <path d="M 240 210 L 260 220 L 280 210" stroke="#333" stroke-width="2" fill="none" />
+    <circle cx="240" cy="210" r="3" fill="#333" />
+    <circle cx="260" cy="220" r="3" fill="#333" />
+    <circle cx="280" cy="210" r="3" fill="#333" />
   </g>
   
   <!-- Module 2: Emotion Analysis -->
-  <g transform="translate(200, 300)">
-    <rect width="120" height="80" rx="15" ry="15" class="module" fill="#C5CAE9" />
-    <text x="60" y="30" text-anchor="middle" class="module-title">Emotion</text>
-    <text x="60" y="50" text-anchor="middle" class="module-title">Analysis</text>
-    <!-- Brain icon -->
-    <path class="gear" d="M 60 65 C 50 60, 45 50, 55 45 C 65 40, 75 50, 65 60 Z" fill="#666" />
-    <path class="gear" d="M 70 65 C 80 60, 85 50, 75 45 C 65 40, 55 50, 65 60 Z" fill="#999" />
+  <g>
+    <rect x="200" y="300" width="120" height="80" rx="15" ry="15" fill="#C5CAE9" stroke="#333" stroke-width="2" />
+    <text x="260" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Emotion Analysis</text>
+    <path d="M 260 365 C 250 360, 245 350, 255 345 C 265 340, 275 350, 265 360 Z" fill="#666" />
+    <path d="M 270 365 C 280 360, 285 350, 275 345 C 265 340, 255 350, 265 360 Z" fill="#999" />
   </g>
   
   <!-- Module 3: Emotion Amplification Content Generation -->
-  <g transform="translate(500, 150)">
-    <rect width="120" height="80" rx="15" ry="15" class="module" fill="#FFECB3" />
-    <text x="60" y="30" text-anchor="middle" class="module-title">Content</text>
-    <text x="60" y="50" text-anchor="middle" class="module-title">Generation</text>
-    <!-- Content icon -->
-    <rect x="40" y="60" width="10" height="15" fill="#333" />
-    <rect x="55" y="60" width="10" height="15" fill="#333" />
-    <rect x="70" y="60" width="10" height="15" fill="#333" />
+  <g>
+    <rect x="500" y="150" width="120" height="80" rx="15" ry="15" fill="#FFECB3" stroke="#333" stroke-width="2" />
+    <text x="560" y="180" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Content Generation</text>
+    <rect x="540" y="210" width="10" height="15" fill="#333" />
+    <rect x="555" y="210" width="10" height="15" fill="#333" />
+    <rect x="570" y="210" width="10" height="15" fill="#333" />
   </g>
   
   <!-- Module 4: Content Sharing and Interaction -->
-  <g transform="translate(500, 300)">
-    <rect width="120" height="80" rx="15" ry="15" class="module" fill="#DCEDC8" />
-    <text x="60" y="30" text-anchor="middle" class="module-title">Content Sharing</text>
-    <text x="60" y="50" text-anchor="middle" class="module-title">& Interaction</text>
-    <!-- Social icon -->
-    <circle cx="50" cy="65" r="6" fill="#333" />
-    <circle cx="70" cy="65" r="6" fill="#333" />
-    <path d="M 50 65 L 70 65" stroke="#333" stroke-width="1" />
+  <g>
+    <rect x="500" y="300" width="120" height="80" rx="15" ry="15" fill="#DCEDC8" stroke="#333" stroke-width="2" />
+    <text x="560" y="330" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold">Content Sharing &amp; Interaction</text>
+    <circle cx="550" cy="365" r="6" fill="#333" />
+    <circle cx="570" cy="365" r="6" fill="#333" />
+    <line x1="550" y1="365" x2="570" y2="365" stroke="#333" stroke-width="1" />
   </g>
   
   <!-- Data flow lines -->
-  <path class="data-flow" d="M 320 190 L 360 250" stroke="#64B5F6" stroke-width="2" fill="none" />
-  <path class="data-flow" d="M 320 340 L 360 250" stroke="#7986CB" stroke-width="2" fill="none" />
-  <path class="data-flow" d="M 440 250 L 500 190" stroke="#FFD54F" stroke-width="2" fill="none" />
-  <path class="data-flow" d="M 440 250 L 500 340" stroke="#AED581" stroke-width="2" fill="none" />
-  <path class="data-flow" d="M 620 190 L 620 300" stroke="#FFA726" stroke-width="2" fill="none" />
-  <path class="data-flow" d="M 260 230 L 260 300" stroke="#5C6BC0" stroke-width="2" fill="none" />
+  <path d="M 320 190 L 360 250" stroke="#64B5F6" stroke-width="2" stroke-dasharray="10 5" fill="none" />
+  <path d="M 320 340 L 360 250" stroke="#7986CB" stroke-width="2" stroke-dasharray="10 5" fill="none" />
+  <path d="M 440 250 L 500 190" stroke="#FFD54F" stroke-width="2" stroke-dasharray="10 5" fill="none" />
+  <path d="M 440 250 L 500 340" stroke="#AED581" stroke-width="2" stroke-dasharray="10 5" fill="none" />
+  <path d="M 620 190 L 620 300" stroke="#FFA726" stroke-width="2" stroke-dasharray="10 5" fill="none" />
+  <path d="M 260 230 L 260 300" stroke="#5C6BC0" stroke-width="2" stroke-dasharray="10 5" fill="none" />
   
   <!-- Emotions floating around -->
-  <g class="emotion" transform="translate(150, 100)">
-    <circle cx="0" cy="0" r="15" fill="#F44336" />
-    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="bold">A</text>
+  <g>
+    <circle cx="150" cy="100" r="15" fill="#F44336" fill-opacity="0.7" />
+    <text x="150" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">A</text>
   </g>
-  <g class="emotion" transform="translate(650, 100)">
-    <circle cx="0" cy="0" r="15" fill="#4CAF50" />
-    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="bold">J</text>
+  <g>
+    <circle cx="650" cy="100" r="15" fill="#4CAF50" fill-opacity="0.7" />
+    <text x="650" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">J</text>
   </g>
-  <g class="emotion" transform="translate(150, 400)">
-    <circle cx="0" cy="0" r="15" fill="#FFC107" />
-    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="bold">S</text>
+  <g>
+    <circle cx="150" cy="400" r="15" fill="#FFC107" fill-opacity="0.7" />
+    <text x="150" y="405" text-anchor="middle" fill="white" font-size="12" font-weight="bold">S</text>
   </g>
-  <g class="emotion" transform="translate(650, 400)">
-    <circle cx="0" cy="0" r="15" fill="#2196F3" />
-    <text x="0" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="bold">F</text>
+  <g>
+    <circle cx="650" cy="400" r="15" fill="#2196F3" fill-opacity="0.7" />
+    <text x="650" y="405" text-anchor="middle" fill="white" font-size="12" font-weight="bold">F</text>
   </g>
   
   <!-- Legend -->
