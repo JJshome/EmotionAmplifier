@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="500" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(70px) rotate(-360deg); }
+    }
+    @keyframes orbitReverse {
+      0% { transform: rotate(0deg) translateX(70px) rotate(0deg); }
+      100% { transform: rotate(-360deg) translateX(70px) rotate(360deg); }
+    }
+    @keyframes colorPulse {
+      0% { fill-opacity: 0.5; }
+      50% { fill-opacity: 0.9; }
+      100% { fill-opacity: 0.5; }
+    }
+    @keyframes dash {
+      to { stroke-dashoffset: 1000; }
+    }
+    @keyframes ripple {
+      0% { transform: scale(0.8); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+    .title { font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; animation: fadeIn 2s; }
+    .subtitle { font-family: Arial, sans-serif; font-size: 16px; animation: fadeIn 3s; }
+    .person { animation: pulse 3s infinite; }
+    .connection { stroke-dasharray: 5; animation: dash 20s linear infinite; }
+    .emotion-sphere { animation: colorPulse 4s infinite; }
+    .orbit-user { animation: orbit 20s linear infinite; }
+    .orbit-user-reverse { animation: orbitReverse 20s linear infinite; }
+    .ripple { animation: ripple 3s infinite; }
+    .floating { animation: float 4s ease-in-out infinite; }
+  </style>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f6f8fb" />
+  
+  <!-- Title -->
+  <text x="400" y="50" text-anchor="middle" class="title" fill="#2c3e50">
+    Emotion Sharing and Social Connection
+  </text>
+  <text x="400" y="80" text-anchor="middle" class="subtitle" fill="#34495e">
+    Real-time emotional synchronization and empathetic connections
+  </text>
+  
+  <!-- Central Platform -->
+  <g transform="translate(400, 250)">
+    <circle cx="0" cy="0" r="80" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" />
+    <circle cx="0" cy="0" r="60" fill="#d6eaf8" stroke="#aed6f1" stroke-width="1" />
+    <circle cx="0" cy="0" r="40" fill="#a9cce3" stroke="#7fb3d5" stroke-width="1" />
+    
+    <!-- Platform name -->
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2c3e50">EmotionShare</text>
+    
+    <!-- Blockchain icon -->
+    <g transform="translate(-20, -70) scale(0.7)">
+      <rect x="0" y="0" width="60" height="20" rx="3" ry="3" fill="#3498db" />
+      <rect x="15" y="25" width="60" height="20" rx="3" ry="3" fill="#2ecc71" />
+      <rect x="-15" y="50" width="60" height="20" rx="3" ry="3" fill="#e74c3c" />
+      <line x1="30" y1="20" x2="45" y2="25" stroke="#34495e" stroke-width="1" />
+      <line x1="15" y1="45" x2="15" y2="50" stroke="#34495e" stroke-width="1" />
+    </g>
+  </g>
+  
+  <!-- Orbiting Users -->
+  <g transform="translate(400, 250)">
+    <!-- User 1 (Joy) -->
+    <g class="orbit-user">
+      <circle cx="0" cy="0" r="25" fill="#f39c12" stroke="#e67e22" stroke-width="2" />
+      <circle cx="0" cy="0" r="35" class="ripple" fill="none" stroke="#f39c12" stroke-width="1" opacity="0.5" />
+      <!-- User icon -->
+      <circle cx="0" cy="-10" r="7" fill="#ffffff" />
+      <path d="M -10 5 Q 0 15, 10 5" stroke="#ffffff" stroke-width="2" fill="none" />
+      <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#ffffff">Joy</text>
+    </g>
+    
+    <!-- User 2 (Calm) -->
+    <g class="orbit-user" style="animation-delay: -5s;">
+      <circle cx="0" cy="0" r="25" fill="#3498db" stroke="#2980b9" stroke-width="2" />
+      <circle cx="0" cy="0" r="35" class="ripple" fill="none" stroke="#3498db" stroke-width="1" opacity="0.5" />
+      <!-- User icon -->
+      <circle cx="0" cy="-10" r="7" fill="#ffffff" />
+      <path d="M -10 5 Q 0 15, 10 5" stroke="#ffffff" stroke-width="2" fill="none" />
+      <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#ffffff">Calm</text>
+    </g>
+    
+    <!-- User 3 (Excited) -->
+    <g class="orbit-user-reverse" style="animation-delay: -10s;">
+      <circle cx="0" cy="0" r="25" fill="#e74c3c" stroke="#c0392b" stroke-width="2" />
+      <circle cx="0" cy="0" r="35" class="ripple" fill="none" stroke="#e74c3c" stroke-width="1" opacity="0.5" />
+      <!-- User icon -->
+      <circle cx="0" cy="-10" r="7" fill="#ffffff" />
+      <path d="M -10 5 Q 0 15, 10 5" stroke="#ffffff" stroke-width="2" fill="none" />
+      <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#ffffff">Excited</text>
+    </g>
+    
+    <!-- User 4 (Relaxed) -->
+    <g class="orbit-user-reverse" style="animation-delay: -15s;">
+      <circle cx="0" cy="0" r="25" fill="#2ecc71" stroke="#27ae60" stroke-width="2" />
+      <circle cx="0" cy="0" r="35" class="ripple" fill="none" stroke="#2ecc71" stroke-width="1" opacity="0.5" />
+      <!-- User icon -->
+      <circle cx="0" cy="-10" r="7" fill="#ffffff" />
+      <path d="M -10 5 Q 0 15, 10 5" stroke="#ffffff" stroke-width="2" fill="none" />
+      <text x="0" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#ffffff">Relaxed</text>
+    </g>
+  </g>
+  
+  <!-- Emotional Content Sharing -->
+  <g transform="translate(150, 150)">
+    <circle cx="0" cy="0" r="40" class="emotion-sphere" fill="#f39c12" fill-opacity="0.7" />
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Joy Content</text>
+    
+    <!-- Content examples -->
+    <g class="floating" transform="translate(-20, -15)">
+      <rect x="0" y="0" width="10" height="10" fill="#ffffff" opacity="0.7" />
+      <rect x="15" y="0" width="10" height="10" fill="#ffffff" opacity="0.7" />
+      <rect x="0" y="15" width="25" height="5" fill="#ffffff" opacity="0.7" />
+    </g>
+  </g>
+  
+  <g transform="translate(650, 150)">
+    <circle cx="0" cy="0" r="40" class="emotion-sphere" fill="#3498db" fill-opacity="0.7" />
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Calm Content</text>
+    
+    <!-- Content examples -->
+    <g class="floating" transform="translate(-20, -15)">
+      <path d="M 0 0 Q 10 -10, 20 0 Q 30 10, 40 0" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7" />
+      <path d="M 0 10 Q 10 0, 20 10 Q 30 20, 40 10" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7" />
+    </g>
+  </g>
+  
+  <g transform="translate(150, 350)">
+    <circle cx="0" cy="0" r="40" class="emotion-sphere" fill="#e74c3c" fill-opacity="0.7" />
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Excited Content</text>
+    
+    <!-- Content examples -->
+    <g class="floating" transform="translate(-20, -15)">
+      <path d="M 0 0 L 10 10 L 0 20 L 10 30" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7" />
+      <path d="M 20 0 L 30 10 L 20 20 L 30 30" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7" />
+    </g>
+  </g>
+  
+  <g transform="translate(650, 350)">
+    <circle cx="0" cy="0" r="40" class="emotion-sphere" fill="#2ecc71" fill-opacity="0.7" />
+    <text x="0" y="5" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#ffffff">Relaxed Content</text>
+    
+    <!-- Content examples -->
+    <g class="floating" transform="translate(-20, -15)">
+      <circle cx="10" cy="10" r="8" fill="#ffffff" opacity="0.7" />
+      <circle cx="30" cy="10" r="8" fill="#ffffff" opacity="0.7" />
+      <path d="M 5 25 Q 20 35, 35 25" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.7" />
+    </g>
+  </g>
+  
+  <!-- Connection lines between content and platform -->
+  <path class="connection" d="M 150 150 C 250 170, 300 200, 350 210" stroke="#f39c12" stroke-width="2" fill="none" />
+  <path class="connection" d="M 650 150 C 550 170, 500 200, 450 210" stroke="#3498db" stroke-width="2" fill="none" />
+  <path class="connection" d="M 150 350 C 250 330, 300 300, 350 290" stroke="#e74c3c" stroke-width="2" fill="none" />
+  <path class="connection" d="M 650 350 C 550 330, 500 300, 450 290" stroke="#2ecc71" stroke-width="2" fill="none" />
+  
+  <!-- Emotional synchronization effects -->
+  <g transform="translate(400, 250)">
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="5" opacity="0.5">
+      <animate attributeName="r" values="90;110;90" dur="10s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="0" cy="0" r="120" fill="none" stroke="#bdc3c7" stroke-width="1" stroke-dasharray="5" opacity="0.3">
+      <animate attributeName="r" values="110;130;110" dur="15s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Feature boxes -->
+  <g transform="translate(50, 440)">
+    <rect width="120" height="40" rx="5" ry="5" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" />
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">Emotion Matching</text>
+  </g>
+  
+  <g transform="translate(190, 440)">
+    <rect width="120" height="40" rx="5" ry="5" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" />
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">Real-time Sharing</text>
+  </g>
+  
+  <g transform="translate(330, 440)">
+    <rect width="140" height="40" rx="5" ry="5" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" />
+    <text x="70" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">Blockchain Security</text>
+  </g>
+  
+  <g transform="translate(490, 440)">
+    <rect width="120" height="40" rx="5" ry="5" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" />
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">Group Emotions</text>
+  </g>
+  
+  <g transform="translate(630, 440)">
+    <rect width="120" height="40" rx="5" ry="5" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" />
+    <text x="60" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#2c3e50">Health Analytics</text>
+  </g>
+</svg>
