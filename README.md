@@ -8,6 +8,8 @@ The Emotion Amplifier System is an innovative platform that collects users' real
 
 This system is designed to enhance emotional expression, foster deeper connections between users, and support mental well-being through better emotional awareness and management.
 
+![System Overview](doc/images/system_overview.svg)
+
 ## Key Features
 
 - **Multi-sensor Emotion Data Collection**: Collects emotion data from multiple sources including heart rate, skin conductance, facial expressions, voice, and bioimpedance.
@@ -46,6 +48,8 @@ The system consists of five main components:
   - Feature extraction
   - Data fusion
 
+![Data Collection](doc/images/data_collection.svg)
+
 ### Emotion Analysis
 
 - **Emotion Classification**:
@@ -69,6 +73,8 @@ The system consists of five main components:
   - Variational Autoencoders (VAEs)
   - GPT-based text generation
 
+![Content Generation](doc/images/content_generation.svg)
+
 ### Social Sharing
 
 - **Connection Features**:
@@ -79,6 +85,8 @@ The system consists of five main components:
 - **Privacy Controls**:
   - Customizable sharing preferences
   - Emotion data anonymization options
+
+![Social Sharing](doc/images/social_sharing.svg)
 
 ### Blockchain Security
 
@@ -172,6 +180,23 @@ The Emotion Amplifier System has potential applications in various fields:
 - Advanced emotion synchronization algorithms for group experiences
 - VR/AR integration for immersive emotional content
 - Federated learning for privacy-preserving emotion model improvement
+
+## Project Structure
+
+```
+EmotionAmplifier/
+├── emotion_amplifier.py      # Main application entry point
+├── emotion_collector.py      # Emotion data collection module
+├── emotion_analyzer.py       # Emotion analysis module
+├── content_generator.py      # Content generation module
+├── social_sharing.py         # Social sharing platform
+├── blockchain_manager.py     # Blockchain security manager
+├── requirements.txt          # Required dependencies
+├── doc/                      # Documentation
+│   └── images/               # Diagrams and illustrations
+├── data/                     # Data storage (created at runtime)
+└── models/                   # Pre-trained models (to be added)
+```
 
 ## License
 
