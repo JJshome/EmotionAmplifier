@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmotionAmplifier Simulation</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --tertiary-color: #f39c12;
+            --danger-color: #e74c3c;
+            --dark-color: #2c3e50;
+            --light-color: #ecf0f1;
+            --neutral-color: #bdc3c7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: var(--dark-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+        
+        h2 {
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--neutral-color);
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        
+        .simulation-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .input-section, .output-section {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .output-section {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="range"], select, button {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid var(--neutral-color);
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            padding: 12px;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .value-display {
+            display: inline-block;
+            width: 50px;
+            text-align: center;
+            margin-left: 10px;
+        }
+        
+        .output-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+            border: 2px dashed var(--neutral-color);
+            border-radius: 5px;
+            margin-top: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        #visualOutput {
+            max-width: 100%;
+            max-height: 300px;
+            margin-bottom: 20px;
+        }
+        
+        #textOutput {
+            width: 100%;
+            min-height: 100px;
+            padding: 10px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            border-radius: 5px;
+            background-color: var(--light-color);
+            margin-bottom: 20px;
+        }
+        
+        #audioControl {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        
+        .emotion-gauge {
+            width: 100%;
+            height: 60px;
+            background-color: var(--light-color);
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .emotion-fill {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 50%;
+            transition: width 0.5s, background-color 0.5s;
+        }
+        
+        .emotion-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--dark-color);
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(255, 255, 255, 0.7);
+        }
+        
+        .color-swatch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 5px;
+            border: 1px solid var(--neutral-color);
+        }
+        
+        .presets {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .preset-button {
+            padding: 10px 15px;
+            background-color: var(--light-color);
+            border: 1px solid var(--neutral-color);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .preset-button:hover {
+            background-color: var(--neutral-color);
+        }
+        
+        .emotions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .emotion-bubble {
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: var(--light-color);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .emotion-bubble:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .simulation-area {
+                flex-direction: column;
+            }
+        }
+
+        /* Animation for the emotion fill */
+        @keyframes pulse {
+            0% { opacity: 0.7; }
+            50% { opacity: 1; }
+            100% { opacity: 0.7; }
+        }
+        
+        .pulsing {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>EmotionAmplifier Simulation</h1>
+            <p>Experience how emotions are amplified through personalized content generation</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <h2>Emotion Input</h2>
+        <div class="simulation-area">
+            <div class="input-section">
+                <div class="presets">
+                    <button class="preset-button" data-emotion="joy">Joy</button>
+                    <button class="preset-button" data-emotion="sadness">Sadness</button>
+                    <button class="preset-button" data-emotion="anger">Anger</button>
+                    <button class="preset-button" data-emotion="fear">Fear</button>
+                    <button class="preset-button" data-emotion="surprise">Surprise</button>
+                    <button class="preset-button" data-emotion="trust">Trust</button>
+                </div>
+                
+                <div class="form-group">
+                    <label for="valenceSlider">Valence (Negative to Positive): <span id="valenceValue" class="value-display">0</span></label>
+                    <input type="range" id="valenceSlider" min="-1" max="1" step="0.1" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="arousalSlider">Arousal (Calm to Excited): <span id="arousalValue" class="value-display">0</span></label>
+                    <input type="range" id="arousalSlider" min="-1" max="1" step="0.1" value="0">
+                </div>
+                
+                <div class="form-group">
+                    <label for="intensitySlider">Intensity: <span id="intensityValue" class="value-display">0.5</span></label>
+                    <input type="range" id="intensitySlider" min="0" max="1" step="0.1" value="0.5">
+                </div>
+                
+                <div class="form-group">
+                    <label for="dominantEmotion">Dominant Emotion:</label>
+                    <select id="dominantEmotion">
+                        <option value="joy">Joy</option>
+                        <option value="trust">Trust</option>
+                        <option value="fear">Fear</option>
+                        <option value="surprise">Surprise</option>
+                        <option value="sadness">Sadness</option>
+                        <option value="disgust">Disgust</option>
+                        <option value="anger">Anger</option>
+                        <option value="anticipation">Anticipation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contentFormat">Content Format:</label>
+                    <select id="contentFormat">
+                        <option value="color_scheme">Color Scheme</option>
+                        <option value="image">Image</option>
+                        <option value="music">Music</option>
+                        <option value="text">Text</option>
+                        <option value="animation">Animation</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>User Preferences:</label>
+                    <div class="emotions-grid">
+                        <div class="emotion-bubble" data-pref="nature">Nature</div>
+                        <div class="emotion-bubble" data-pref="abstract">Abstract</div>
+                        <div class="emotion-bubble" data-pref="geometric">Geometric</div>
+                        <div class="emotion-bubble" data-pref="minimalist">Minimalist</div>
+                        <div class="emotion-bubble" data-pref="vibrant">Vibrant</div>
+                        <div class="emotion-bubble" data-pref="calming">Calming</div>
+                    </div>
+                </div>
+                
+                <button id="generateBtn">Generate Content</button>
+            </div>
+            
+            <div class="output-section">
+                <h3>Emotion Analysis</h3>
+                <div class="emotion-gauge">
+                    <div class="emotion-fill" id="emotionFill"></div>
+                    <div class="emotion-label" id="emotionLabel">Neutral</div>
+                </div>
+                
+                <div id="quadrantInfo"></div>
+                
+                <h3>Generated Content</h3>
+                <div class="output-container">
+                    <div id="visualOutput"></div>
+                    <p id="textOutput">Content will appear here after generation...</p>
+                    <audio id="audioControl" controls></audio>
+                </div>
+            </div>
+        </div>
+        
+        <h2>How It Works</h2>
+        <p>This simulation demonstrates the basic functionality of the EmotionAmplifier system:</p>
+        <ol>
+            <li><strong>Emotion Input:</strong> In a real system, emotions would be detected through bioimpedance measurements, heart rate, EEG, facial expressions, and other sensors. Here, you can manually set your emotional state.</li>
+            <li><strong>Emotion Analysis:</strong> The system analyzes the input to determine the emotional state in terms of valence, arousal, dominant emotions, and intensity.</li>
+            <li><strong>Content Generation:</strong> Based on the emotional analysis, personalized content is generated using hybrid GAN-VAE (Generative Adversarial Network + Variational Autoencoder) technology.</li>
+            <li><strong>Emotion Amplification:</strong> The generated content is designed to amplify or modulate the emotional experience based on the user's preferences and current state.</li>
+        </ol>
+        <p>In a full implementation, the system would continuously monitor emotional responses to the generated content, creating a feedback loop for optimal emotional experiences.</p>
+    </div>
+    
+    <script>
+        // DOM elements
+        const valenceSlider = document.getElementById('valenceSlider');
+        const arousalSlider = document.getElementById('arousalSlider');
+        const intensitySlider = document.getElementById('intensitySlider');
+        const valenceValue = document.getElementById('valenceValue');
+        const arousalValue = document.getElementById('arousalValue');
+        const intensityValue = document.getElementById('intensityValue');
+        const dominantEmotion = document.getElementById('dominantEmotion');
+        const contentFormat = document.getElementById('contentFormat');
+        const generateBtn = document.getElementById('generateBtn');
+        const emotionFill = document.getElementById('emotionFill');
+        const emotionLabel = document.getElementById('emotionLabel');
+        const quadrantInfo = document.getElementById('quadrantInfo');
+        const visualOutput = document.getElementById('visualOutput');
+        const textOutput = document.getElementById('textOutput');
+        const audioControl = document.getElementById('audioControl');
+        const presetButtons = document.querySelectorAll('.preset-button');
+        const emotionBubbles = document.querySelectorAll('.emotion-bubble');
+        
+        // Selected user preferences
+        const userPreferences = new Set();
+        
+        // Event listeners
+        valenceSlider.addEventListener('input', updateValenceDisplay);
+        arousalSlider.addEventListener('input', updateArousalDisplay);
+        intensitySlider.addEventListener('input', updateIntensityDisplay);
+        generateBtn.addEventListener('click', generateContent);
+        
+        // Add event listeners to preset buttons
+        presetButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const emotion = button.dataset.emotion;
+                setEmotionPreset(emotion);
+            });
+        });
+        
+        // Add event listeners to emotion bubbles
+        emotionBubbles.forEach(bubble => {
+            bubble.addEventListener('click', () => {
+                bubble.classList.toggle('selected');
+                const pref = bubble.dataset.pref;
+                
+                if (bubble.classList.contains('selected')) {
+                    userPreferences.add(pref);
+                    bubble.style.backgroundColor = '#3498db';
+                    bubble.style.color = 'white';
+                } else {
+                    userPreferences.delete(pref);
+                    bubble.style.backgroundColor = '';
+                    bubble.style.color = '';
+                }
+            });
+        });
+        
+        // Update display functions
+        function updateValenceDisplay() {
+            valenceValue.textContent = valenceSlider.value;
+            updateEmotionGauge();
+        }
+        
+        function updateArousalDisplay() {
+            arousalValue.textContent = arousalSlider.value;
+            updateEmotionGauge();
+        }
+        
+        function updateIntensityDisplay() {
+            intensityValue.textContent = intensitySlider.value;
+            updateEmotionGauge();
+        }
+        
+        function updateEmotionGauge() {
+            const valence = parseFloat(valenceSlider.value);
+            const arousal = parseFloat(arousalSlider.value);
+            const intensity = parseFloat(intensitySlider.value);
+            
+            // Determine quadrant
+            let quadrant;
+            let color;
+            
+            if (valence >= 0 && arousal >= 0) {
+                quadrant = "Happy-Excited";
+                color = "#f1c40f"; // Yellow
+            } else if (valence >= 0 && arousal < 0) {
+                quadrant = "Relaxed-Content";
+                color = "#2ecc71"; // Green
+            } else if (valence < 0 && arousal >= 0) {
+                quadrant = "Angry-Stressed";
+                color = "#e74c3c"; // Red
+            } else {
+                quadrant = "Sad-Depressed";
+                color = "#3498db"; // Blue
+            }
+            
+            // Update gauge
+            emotionFill.style.width = `${(intensity * 100)}%`;
+            emotionFill.style.backgroundColor = color;
+            emotionLabel.textContent = dominantEmotion.value;
+            
+            // Update quadrant info
+            quadrantInfo.innerHTML = `<p><strong>Emotional Quadrant:</strong> ${quadrant}</p>`;
+            quadrantInfo.innerHTML += `<p><strong>Valence:</strong> ${valence.toFixed(1)} | <strong>Arousal:</strong> ${arousal.toFixed(1)} | <strong>Intensity:</strong> ${intensity.toFixed(1)}</p>`;
+        }
+        
+        function setEmotionPreset(emotion) {
+            switch(emotion) {
+                case 'joy':
+                    valenceSlider.value = 0.8;
+                    arousalSlider.value = 0.5;
+                    intensitySlider.value = 0.9;
+                    dominantEmotion.value = 'joy';
+                    break;
+                case 'sadness':
+                    valenceSlider.value = -0.7;
+                    arousalSlider.value = -0.5;
+                    intensitySlider.value = 0.7;
+                    dominantEmotion.value = 'sadness';
+                    break;
+                case 'anger':
+                    valenceSlider.value = -0.6;
+                    arousalSlider.value = 0.8;
+                    intensitySlider.value = 0.8;
+                    dominantEmotion.value = 'anger';
+                    break;
+                case 'fear':
+                    valenceSlider.value = -0.8;
+                    arousalSlider.value = 0.7;
+                    intensitySlider.value = 0.7;
+                    dominantEmotion.value = 'fear';
+                    break;
+                case 'surprise':
+                    valenceSlider.value = 0.4;
+                    arousalSlider.value = 0.8;
+                    intensitySlider.value = 0.6;
+                    dominantEmotion.value = 'surprise';
+                    break;
+                case 'trust':
+                    valenceSlider.value = 0.6;
+                    arousalSlider.value = -0.2;
+                    intensitySlider.value = 0.7;
+                    dominantEmotion.value = 'trust';
+                    break;
+            }
+            
+            // Update displays
+            updateValenceDisplay();
+            updateArousalDisplay();
+            updateIntensityDisplay();
+        }
+        
+        function generateContent() {
+            const valence = parseFloat(valenceSlider.value);
+            const arousal = parseFloat(arousalSlider.value);
+            const intensity = parseFloat(intensitySlider.value);
+            const emotion = dominantEmotion.value;
+            const format = contentFormat.value;
+            
+            // Show loading state
+            textOutput.textContent = "Generating content...";
+            visualOutput.innerHTML = "";
+            audioControl.style.display = "none";
+            
+            // Simulate processing delay
+            setTimeout(() => {
+                // Generate different content based on format
+                switch(format) {
+                    case 'color_scheme':
+                        generateColorScheme(valence, arousal, intensity, emotion);
+                        break;
+                    case 'image':
+                        generateImage(valence, arousal, intensity, emotion);
+                        break;
+                    case 'music':
+                        generateMusic(valence, arousal, intensity, emotion);
+                        break;
+                    case 'text':
+                        generateText(valence, arousal, intensity, emotion);
+                        break;
+                    case 'animation':
+                        generateAnimation(valence, arousal, intensity, emotion);
+                        break;
+                    default:
+                        textOutput.textContent = "Unsupported content format";
+                }
+                
+                // Add the pulsing effect to the emotion fill
+                emotionFill.classList.add('pulsing');
+            }, 1000);
+        }
+        
+        function generateColorScheme(valence, arousal, intensity, emotion) {
+            // Determine base hue based on emotion
+            let baseHue;
+            
+            if (valence > 0.5) { // Very positive
+                baseHue = 60; // Yellow
+            } else if (valence > 0) { // Positive
+                baseHue = 120; // Green
+            } else if (valence > -0.5) { // Slightly negative
+                baseHue = 240; // Blue
+            } else { // Very negative
+                baseHue = 280; // Purple
+            }
+            
+            // Adjust for arousal
+            if (arousal > 0) {
+                baseHue = (baseHue + 30 * arousal) % 360; // Shift toward warmer colors
+            } else {
+                baseHue = (baseHue - 30 * Math.abs(arousal)) % 360; // Shift toward cooler colors
+            }
+            
+            // Calculate saturation and brightness based on intensity
+            const saturation = 0.3 + (0.7 * intensity);
+            const brightness = 0.4 + (0.6 * intensity);
+            
+            // Create complementary and analogous colors
+            const colors = [];
+            
+            // Main color
+            colors.push(hsvToRgb(baseHue, saturation, brightness));
+            
+            // Complementary color
+            const complementaryHue = (baseHue + 180) % 360;
+            colors.push(hsvToRgb(complementaryHue, saturation * 0.9, brightness * 0.9));
+            
+            // Analogous colors
+            const analog1Hue = (baseHue + 30) % 360;
+            const analog2Hue = (baseHue - 30) % 360;
+            colors.push(hsvToRgb(analog1Hue, saturation * 0.8, brightness * 1.1));
+            colors.push(hsvToRgb(analog2Hue, saturation * 0.8, brightness * 1.1));
+            
+            // Accent color
+            const accentHue = (complementaryHue + 30) % 360;
+            colors.push(hsvToRgb(accentHue, saturation * 1.2, brightness * 0.8));
+            
+            // Display the color scheme
+            visualOutput.innerHTML = "";
+            const colorSwatch = document.createElement('div');
+            colorSwatch.className = 'color-swatch';
+            
+            colors.forEach(color => {
+                const colorBox = document.createElement('div');
+                colorBox.className = 'color-box';
+                colorBox.style.backgroundColor = `rgb(${color[0]}, ${color[1]}, ${color[2]})`;
+                colorSwatch.appendChild(colorBox);
+            });
+            
+            visualOutput.appendChild(colorSwatch);
+            
+            // Update text output
+            textOutput.textContent = `Generated color scheme for ${emotion} emotion with valence ${valence.toFixed(1)} and arousal ${arousal.toFixed(1)}. This color palette is designed to ${valence > 0 ? 'enhance' : 'modulate'} your emotional state.`;
+            
+            // Hide audio control
+            audioControl.style.display = "none";
+        }
+        
+        function generateImage(valence, arousal, intensity, emotion) {
+            // In a real implementation, this would generate or retrieve an actual image
+            // Here we're using color blocks to simulate it
+            
+            // Generate a placeholder div with gradient background based on emotion
+            let color1, color2;
+            
+            if (valence >= 0 && arousal >= 0) { // Happy-excited
+                color1 = "rgb(255, 215, 0)"; // Gold
+                color2 = "rgb(255, 140, 0)"; // Dark orange
+            } else if (valence >= 0 && arousal < 0) { // Relaxed-content
+                color1 = "rgb(0, 128, 128)"; // Teal
+                color2 = "rgb(46, 204, 113)"; // Green
+            } else if (valence < 0 && arousal >= 0) { // Angry-stressed
+                color1 = "rgb(220, 20, 60)"; // Crimson
+                color2 = "rgb(139, 0, 0)"; // Dark red
+            } else { // Sad-depressed
+                color1 = "rgb(65, 105, 225)"; // Royal blue
+                color2 = "rgb(70, 130, 180)"; // Steel blue
+            }
+            
+            const imageDiv = document.createElement('div');
+            imageDiv.style.width = "200px";
+            imageDiv.style.height = "200px";
+            imageDiv.style.background = `linear-gradient(45deg, ${color1}, ${color2})`;
+            imageDiv.style.borderRadius = "10px";
+            imageDiv.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
+            
+            visualOutput.innerHTML = "";
+            visualOutput.appendChild(imageDiv);
+            
+            // Update text output
+            textOutput.textContent = `Generated image for ${emotion} emotion. This visual element is designed to resonate with your current emotional state and ${valence > 0 ? 'amplify positive feelings' : 'help process and transform negative emotions'}.`;
+            
+            // Hide audio control
+            audioControl.style.display = "none";
+        }
+        
+        function generateMusic(valence, arousal, intensity, emotion) {
+            // In a real implementation, this would generate or retrieve actual music
+            // Here we're providing placeholder text and showing the audio control
+            
+            // Update text output
+            textOutput.textContent = `Generated music for ${emotion} emotion with tempo ${Math.round(60 + arousal * 80)} BPM. This musical piece is specially crafted to ${valence > 0 ? 'enhance your positive emotional state' : 'help transform your emotional energy'} through harmonic patterns and rhythmic elements.`;
+            
+            // Show audio control with placeholder audio
+            audioControl.style.display = "block";
+            audioControl.src = ""; // In a real implementation, this would be a generated audio file
+            
+            // Clear visual output
+            visualOutput.innerHTML = "";
+            
+            // Add a visual music icon
+            const musicIcon = document.createElement('div');
+            musicIcon.innerHTML = `
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="${valence >= 0 ? '#2ecc71' : '#3498db'}" stroke-width="2" />
+                    <path d="M 30 40 L 30 70 M 30 40 L 50 35 L 50 65 M 55 37 A 5 5 0 1 0 55 47 A 5 5 0 1 0 55 37 M 55 67 A 5 5 0 1 0 55 77 A 5 5 0 1 0 55 67 M 30 70 A 5 5 0 1 0 30 80 A 5 5 0 1 0 30 70" 
+                          fill="none" stroke="${valence >= 0 ? '#2ecc71' : '#3498db'}" stroke-width="3" />
+                </svg>
+            `;
+            visualOutput.appendChild(musicIcon);
+        }
+        
+        function generateText(valence, arousal, intensity, emotion) {
+            // Generate text based on emotion
+            let text = "";
+            
+            // Different text types based on emotional state
+            if (emotion === 'joy') {
+                text = "You are filled with radiant joy that brightens everyone around you. This moment is a gift, and your positive energy creates ripples that extend far beyond what you can see. Embrace this feeling and let it flow through you, creating more beautiful moments.";
+            } else if (emotion === 'sadness') {
+                text = "It's okay to feel sad; this feeling will pass like clouds in the sky. Your emotions are valid and are part of the human experience. Take time to honor them, then gently let them go when you're ready. Remember that after every storm comes sunshine.";
+            } else if (emotion === 'anger') {
+                text = "Your passion can be channeled into powerful, constructive energy. Feel the strength within you, and direct it toward positive change. Take deep breaths and remember that you have the wisdom to transform this energy into something beneficial.";
+            } else if (emotion === 'fear') {
+                text = "Your courage is greater than any fear you face. Fear is just a signpost pointing to areas where you can grow stronger. Breathe deeply and remember all the times you've overcome challenges in the past. You have the inner resources to handle this.";
+            } else if (emotion === 'surprise') {
+                text = "Life is full of wonderful surprises waiting to be discovered. This unexpected moment invites you to see the world with fresh eyes. Embrace the unknown and let it reveal new possibilities you hadn't imagined before.";
+            } else if (emotion === 'trust') {
+                text = "You are worthy of trust and capable of trusting yourself. The connections you build with others create a foundation of mutual support. Trust in your journey and in your ability to navigate life's path with wisdom and grace.";
+            } else if (emotion === 'disgust') {
+                text = "You can transform negativity into motivation for positive change. This feeling helps you identify what doesn't align with your values. Use it as a compass to guide you toward what you truly value and wish to cultivate in your life.";
+            } else if (emotion === 'anticipation') {
+                text = "Exciting possibilities await you just beyond the horizon. Your sense of anticipation opens you to new experiences and opportunities. Stay present while looking forward, and enjoy the journey as much as the destination.";
+            }
+            
+            // Update text output
+            textOutput.textContent = text;
+            
+            // Clear visual output and hide audio control
+            visualOutput.innerHTML = "";
+            audioControl.style.display = "none";
+            
+            // Add a decorative text icon
+            const textIcon = document.createElement('div');
+            textIcon.innerHTML = `
+                <svg width="100" height="100" viewBox="0 0 100 100">
+                    <rect x="25" y="30" width="50" height="40" rx="5" ry="5" fill="none" stroke="${valence >= 0 ? '#2ecc71' : '#3498db'}" stroke-width="2" />
+                    <line x1="35" y1="45" x2="65" y2="45" stroke="${valence >= 0 ? '#2ecc71' : '#3498db'}" stroke-width="2" />
+                    <line x1="35" y1="55" x2="55" y2="55" stroke="${valence >= 0 ? '#2ecc71' : '#3498db'}" stroke-width="2" />
+                </svg>
+            `;
+            visualOutput.appendChild(textIcon);
+        }
+        
+        function generateAnimation(valence, arousal, intensity, emotion) {
+            // In a real implementation, this would generate an actual animation
+            // Here we're creating a simple animated SVG
+            
+            // Create animation based on emotion parameters
+            const animationSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+            animationSvg.setAttribute("width", "200");
+            animationSvg.setAttribute("height", "200");
+            animationSvg.setAttribute("viewBox", "0 0 200 200");
+            
+            // Add styles
+            const style = document.createElementNS("http://www.w3.org/2000/svg", "style");
+            style.textContent = `
+                @keyframes circleAnimation {
+                    0% { r: 30; }
+                    50% { r: ${30 + (intensity * 20)}; }
+                    100% { r: 30; }
+                }
+                @keyframes colorAnimation {
+                    0% { fill: ${valence >= 0 ? '#f1c40f' : '#3498db'}; }
+                    50% { fill: ${arousal >= 0 ? '#e74c3c' : '#2ecc71'}; }
+                    100% { fill: ${valence >= 0 ? '#f1c40f' : '#3498db'}; }
+                }
+                .animated-circle {
+                    animation: circleAnimation ${2 + (2 * (1 - Math.abs(arousal)))}s infinite, 
+                              colorAnimation ${4 + (3 * intensity)}s infinite;
+                    transform-origin: center;
+                }
+            `;
+            animationSvg.appendChild(style);
+            
+            // Add animated circles
+            for (let i = 0; i < 3; i++) {
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", "100");
+                circle.setAttribute("cy", "100");
+                circle.setAttribute("r", "30");
+                circle.setAttribute("fill", valence >= 0 ? '#f1c40f' : '#3498db');
+                circle.setAttribute("opacity", "0.7");
+                circle.setAttribute("class", "animated-circle");
+                circle.style.animationDelay = `${i * 0.5}s`;
+                animationSvg.appendChild(circle);
+            }
+            
+            // Display the animation
+            visualOutput.innerHTML = "";
+            visualOutput.appendChild(animationSvg);
+            
+            // Update text output
+            textOutput.textContent = `Generated animation for ${emotion} emotion. This dynamic visual element is designed to resonate with your emotional rhythm and help ${valence >= 0 ? 'amplify your positive state' : 'process and transform your emotional energy'}.`;
+            
+            // Hide audio control
+            audioControl.style.display = "none";
+        }
+        
+        // Utility function to convert HSV to RGB
+        function hsvToRgb(h, s, v) {
+            h = h % 360;
+            const h_i = Math.floor(h / 60);
+            const f = h / 60 - h_i;
+            const p = v * (1 - s);
+            const q = v * (1 - f * s);
+            const t = v * (1 - (1 - f) * s);
+            
+            let r, g, b;
+            
+            if (h_i === 0) {
+                r = v; g = t; b = p;
+            } else if (h_i === 1) {
+                r = q; g = v; b = p;
+            } else if (h_i === 2) {
+                r = p; g = v; b = t;
+            } else if (h_i === 3) {
+                r = p; g = q; b = v;
+            } else if (h_i === 4) {
+                r = t; g = p; b = v;
+            } else {
+                r = v; g = p; b = q;
+            }
+            
+            return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        }
+        
+        // Initialize with default values
+        updateValenceDisplay();
+        updateArousalDisplay();
+        updateIntensityDisplay();
+    </script>
+</body>
+</html>
