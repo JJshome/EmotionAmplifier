@@ -1,150 +1,187 @@
-# EmotionAmplifier: Real-time Emotion Data-based Amplification and Sharing System
+# Emotion Amplifier System
 
-A comprehensive system that collects real-time emotional data through multiple sensors, analyzes it using advanced AI techniques, generates personalized emotion-amplifying content, and enables emotional sharing in a secure environment.
-
-![System Overview](doc/images/system_overview.svg)
-
-## Table of Contents
-
-- [Overview](#overview)
-- [System Architecture](#system-architecture)
-- [Key Features](#key-features)
-- [Components](#components)
-  - [Emotion Data Collection](#emotion-data-collection)
-  - [Emotion Analysis](#emotion-analysis)
-  - [Emotion Amplification Content Generation](#emotion-amplification-content-generation)
-  - [Content Sharing and Social Interaction](#content-sharing-and-social-interaction)
-- [Technical Innovations](#technical-innovations)
-- [Applications](#applications)
-- [Simulation](#simulation)
+A real-time emotion data collection, analysis, amplification, and sharing system based on multi-sensor fusion and deep learning technologies.
 
 ## Overview
 
-The EmotionAmplifier system uses real-time biometric data including frequency-scanned bioimpedance measurements to accurately detect and analyze emotional states. It then generates personalized content to amplify or modulate these emotions and facilitates sharing of emotional experiences between users, creating deeper connections and improving mental well-being.
+The Emotion Amplifier System is an innovative platform that collects users' real-time emotion data through various sensors, analyzes these emotions using advanced deep learning algorithms, generates personalized content to amplify or modulate emotions, and provides a platform for sharing emotional experiences with others.
 
-## System Architecture
-
-The system consists of four primary modules that work together to create a seamless emotional experience:
-
-1. **Emotion Data Collection**: Gathers physiological data through various sensors and user inputs
-2. **Emotion Analysis**: Processes collected data to determine emotional states using deep learning techniques
-3. **Emotion Amplification Content Generation**: Creates personalized multimedia content tailored to the user's emotional state
-4. **Content Sharing and Social Interaction**: Enables users to share emotional experiences and connect with others
-
-![System Architecture](doc/images/system_overview.svg)
+This system is designed to enhance emotional expression, foster deeper connections between users, and support mental well-being through better emotional awareness and management.
 
 ## Key Features
 
-- **Multi-sensor fusion** for comprehensive emotion detection (heart rate, EEG, skin conductance, frequency-scanned bioimpedance)
-- **Deep learning-based emotion analysis** utilizing multimodal LSTM networks for accurate emotion classification
-- **Hybrid generative models** (GAN + VAE) for creating personalized emotion-amplifying content
-- **Blockchain-backed emotional sharing platform** for secure and private emotional connections
-- **Emotion synchronization algorithms** to match users with compatible emotional states
-- **Mental health tracking** and analysis for long-term emotional well-being
+- **Multi-sensor Emotion Data Collection**: Collects emotion data from multiple sources including heart rate, skin conductance, facial expressions, voice, and bioimpedance.
 
-## Components
+- **Multi-modal Emotion Analysis**: Processes different types of input data through specialized deep learning models to accurately identify and quantify emotions.
+
+- **Personalized Emotion Content Generation**: Creates custom content (images, text, music) specifically tailored to amplify or modulate the user's emotional state.
+
+- **Emotion-based Social Platform**: Connects users based on emotional synchronicity and enables sharing of emotion-amplified content.
+
+- **Blockchain-based Data Security**: Ensures ownership and privacy of sensitive emotion data using blockchain technology.
+
+## System Architecture
+
+The system consists of five main components:
+
+1. **Emotion Data Collector**: Interfaces with various sensors to gather raw emotional data.
+2. **Emotion Analyzer**: Processes collected data to identify emotional states.
+3. **Emotion Content Generator**: Creates personalized content based on analyzed emotions.
+4. **Social Sharing Platform**: Enables sharing and synchronization of emotional experiences.
+5. **Blockchain Manager**: Secures emotion data and content ownership.
+
+## Implementation Details
 
 ### Emotion Data Collection
 
-The system employs multiple sensors and data collection methods to gather comprehensive emotional data:
-
-![Data Collection](doc/images/data_collection.svg)
-
-- **Physiological Data**:
+- **Supported Sensors**: 
   - Heart rate and heart rate variability (HRV)
-  - Brain wave patterns (EEG)
-  - Skin conductance (GSR)
-  - Body temperature
-  - Facial expressions via computer vision
-  - Voice analysis
-  - **Frequency-scanned bioimpedance measurements** (proprietary technology)
+  - Skin conductance (electrodermal activity)
+  - Facial expression (via camera)
+  - Voice tone analysis
+  - Bioimpedance (frequency-scanning)
 
-- **User Input Data**:
-  - Self-reported emotional states
-  - Preferences and interests
-  - Emotional goals
-
-The data collection module uses wearable devices (smartwatches, headbands) and smartphone sensors, with a focus on non-invasive and comfortable continuous monitoring.
+- **Data Preprocessing**:
+  - Signal filtering and normalization
+  - Feature extraction
+  - Data fusion
 
 ### Emotion Analysis
 
-The collected data undergoes sophisticated processing to identify emotional states:
+- **Emotion Classification**:
+  - Plutchik's wheel of emotions (8 basic emotions)
+  - Emotion intensity quantification
 
-- **Data Preprocessing**: Normalizes and integrates different types of sensor data
-- **Feature Extraction**: Identifies relevant patterns and features from raw signals
-- **Multimodal LSTM Network**: Analyzes time-series data from multiple sources
-- **Emotion Classification**: Categorizes emotions with intensity scores (Joy, Trust, Fear, Surprise, Sadness, Disgust, Anger, Anticipation)
-- **Personalized Emotion Model**: Continuously learns and adapts to individual emotional patterns
+- **Analysis Techniques**:
+  - Long Short-Term Memory (LSTM) networks
+  - Multi-modal deep learning
+  - Attention mechanisms
 
-The system can detect subtle emotional nuances and context-specific emotional responses, going beyond basic emotion classification.
-
-### Emotion Amplification Content Generation
-
-Based on the analyzed emotional state, the system generates personalized content to amplify or modulate emotions:
-
-![Content Generation](doc/images/content_generation.svg)
-
-- **Hybrid Generative Model**:
-  - **Generative Adversarial Network (GAN)** for high-quality visual and audio content
-  - **Variational Autoencoder (VAE)** for structured emotional representation
+### Content Generation
 
 - **Content Types**:
-  - Visual (images, animations, color schemes)
-  - Audio (music, ambient sounds)
-  - Text (affirmations, stories, poetry)
-  - Haptic feedback patterns
+  - Visual (images, animations)
+  - Auditory (music, ambient sounds)
+  - Textual (poetry, affirmations)
 
-- **Personalization Factors**:
-  - Current emotional state
-  - Personal preferences
-  - Historical content effectiveness
-  - Emotional goals
+- **Generation Techniques**:
+  - Generative Adversarial Networks (GANs)
+  - Variational Autoencoders (VAEs)
+  - GPT-based text generation
 
-The content generation adapts in real-time based on user feedback and physiological responses.
+### Social Sharing
 
-### Content Sharing and Social Interaction
+- **Connection Features**:
+  - Emotion-based user matching
+  - Emotional synchronization rooms
+  - Content sharing with emotion context
 
-The system enables users to share emotional states and generated content with others:
+- **Privacy Controls**:
+  - Customizable sharing preferences
+  - Emotion data anonymization options
 
-![Social Sharing](doc/images/social_sharing.svg)
+### Blockchain Security
 
-- **Emotion Matching**: Connects users with compatible emotional states
-- **Content Sharing**: Allows sharing of generated emotional content
-- **Group Emotional Experiences**: Facilitates collective emotional activities
-- **Emotional Feedback**: Provides responses to shared emotional content
-- **Blockchain Security**: Protects emotional data ownership and privacy
+- **Security Features**:
+  - Emotion data ownership verification
+  - Content copyright protection
+  - Secure sharing mechanisms
 
-The platform creates meaningful emotional connections while maintaining privacy and data security.
+## Installation
 
-## Technical Innovations
+```bash
+# Clone the repository
+git clone https://github.com/JJshome/EmotionAmplifier.git
 
-1. **Multi-sensor fusion and multimodal deep learning**: Integrates diverse emotional data sources for unprecedented accuracy in emotion detection.
+# Navigate to the project directory
+cd EmotionAmplifier
 
-2. **Frequency-scanned bioimpedance analysis**: Captures subtle neurological responses related to emotional states through proprietary signal processing.
+# Install dependencies
+pip install -r requirements.txt
 
-3. **Hybrid GAN-VAE architecture**: Combines the creative potential of GANs with the structured representation of VAEs for optimal emotion-based content generation.
+# Run the application
+python emotion_amplifier.py --user [USER_ID] --config [CONFIG_PATH]
+```
 
-4. **Emotion synchronization algorithms**: Novel approach to match users based on emotional compatibility and facilitate meaningful connections.
+## Usage
 
-5. **Blockchain-based emotional data management**: Secures user data while enabling selective sharing of emotional experiences.
+### Basic Command Line Usage
+
+```bash
+# Run with default settings
+python emotion_amplifier.py --user user123
+
+# Specify data collection duration
+python emotion_amplifier.py --user user123 --duration 60
+
+# Generate specific content type
+python emotion_amplifier.py --user user123 --content image
+
+# Share generated content
+python emotion_amplifier.py --user user123 --share
+```
+
+### Configuration
+
+Create a JSON configuration file to customize system behavior:
+
+```json
+{
+    "data_collection": {
+        "sensors": ["heart_rate", "skin_conductance", "facial_expression", "impedance"],
+        "sampling_rate": 1.0,
+        "storage_path": "./data"
+    },
+    "analysis": {
+        "model_path": "./models/emotion_model.h5",
+        "use_multimodal": true,
+        "emotion_categories": ["joy", "sadness", "anger", "fear", "surprise", "disgust", "trust", "anticipation"]
+    },
+    "content_generation": {
+        "gan_model_path": "./models/gan_model.h5",
+        "gpt_model_path": "./models/gpt_model.h5",
+        "content_types": ["image", "text", "music"],
+        "personalization_level": 0.8
+    },
+    "social_sharing": {
+        "platform_url": "https://emotion-amplifier.social",
+        "default_privacy": "friends",
+        "content_expiry": 86400
+    },
+    "blockchain": {
+        "chain_type": "hyperledger",
+        "chain_location": "local"
+    }
+}
+```
 
 ## Applications
 
-The EmotionAmplifier system has applications across multiple domains:
+The Emotion Amplifier System has potential applications in various fields:
 
-- **Mental Health**: Emotion tracking, stress management, mood enhancement
-- **Entertainment**: Emotionally responsive content, immersive experiences
-- **Social Media**: Deeper emotional connections between users
-- **Education**: Emotion-optimized learning environments
-- **Healthcare**: Emotional well-being monitoring and intervention
-- **Marketing**: Emotionally resonant customer experiences
+- **Mental Health**: Supporting emotion management and stress reduction
+- **Entertainment**: Creating immersive, emotionally responsive experiences
+- **Social Connectivity**: Fostering deeper emotional connections between individuals
+- **Healthcare**: Monitoring emotional well-being and detecting emotional distress
+- **Education**: Enhancing emotional intelligence and empathy
 
-## Simulation
+## Future Directions
 
-Try out a simulated version of the EmotionAmplifier system:
+- Integration with wearable devices for continuous emotion monitoring
+- Expanded emotion recognition with more nuanced categories
+- Advanced emotion synchronization algorithms for group experiences
+- VR/AR integration for immersive emotional content
+- Federated learning for privacy-preserving emotion model improvement
 
-1. Visit the [simulation page](deployment/simulation/index.html)
-2. Input sample physiological data or use one of our pre-defined emotional profiles
-3. Observe the generated emotion-amplifying content and social matching features
+## License
 
-*Patent Pending*
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgements
+
+- Based on research in affective computing, deep learning, and human-computer interaction
+- Inspired by the field of emotion psychology and theories of emotional regulation
+
+## Contact
+
+For questions or collaborations, please open an issue in this repository.
